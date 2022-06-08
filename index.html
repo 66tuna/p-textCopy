@@ -29,11 +29,17 @@
                     <input type="text" name="carNum" id="carNum">
                 </div>
                 <div class="bottom-text">
-                    <button type="button">문닫기</button>
-                    <button type="button">문열기</button>
+                    <button type="button" onclick="isCarNumClose()">문닫기</button>
+                    <button type="button" onclick="isCarNumOpen()">문열기</button>
                     <button type="button" onclick="completion()" >차량반납</button> <!-- 차량반납, 문닫기 -->
                 </div>
             </div>
+        </div>
+
+        <div class="carControllPop"> <!-- 차량 반납시 장소 보내기 -->
+            <a href="#">X</a>
+            <p></p>
+            <input type="text" name="spot" placeholder="차량 반납 장소"> <button type="button" onclick="carCtrBtn()">보내기</button>
         </div>
 
         <div class="tool">
@@ -53,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <!-- <p>0/100</p>  -->
+        <!-- <p>0/300</p>  -->
 
         <div class="pop">
             <p></p>

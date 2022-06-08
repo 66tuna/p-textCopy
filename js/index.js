@@ -1,34 +1,41 @@
 // 가로 모드
-$(function(){
-    $(window).resize(function(){
+$(function () {
+    $(window).resize(function () {
         var wrapHeight = window.innerHeight;
-        if(wrapHeight <= 300){ // 브라우저가 높이 300이하면 안의 기능들이 가로 정렬
+        if (wrapHeight <= 300) { // 브라우저가 높이 300이하면 안의 기능들이 가로 정렬
             $('#wrap').addClass('cli-height')
             $('.carList, .tool, .carControll').addClass('borderNone');
             $('.carControll').addClass('carControllCenter')
-        }else{ // 그렇지 않으면 세로 정렬
+        } else { // 그렇지 않으면 세로 정렬
             $('#wrap').removeClass('cli-height')
             $('.carList, .tool, .carControll').removeClass('borderNone');
         }
     })
 })
 
-function reservation(){ // 차량번호 예약 함수
+function reservation() { // 차량번호 예약 함수
     // var carList = new Array();
 
     var carTextList = $('#carList').val(); // 차량 리스트 텍스트 전부 가져오기
     var carAs = carTextList.split('\n') // 줄바꿈 될때마다 배열에 추가
-    console.log(carAs);
-    var carList = new Array();
-    for(let i = 0; i<carAs.length; i++){
+    console.log("carAs: " + carAs);
+    var carList = new Array(); // json으로 바꿔줄 배열
+    for (let i = 0; i < carAs.length; i++) {
         var data = new Object();
         data.carNum = carAs[i]
 
-        carList.push(data)
+        carList.push(data) // carAs의 배열을 carList배열로 추가
     }
+    console.log("carList: " + carList);
+    carList = carList.filter(function (item) { //배열에 공백이 있으면 삭제
+        console.log(item);
+        return item !== null && item !== undefined && item !== '';
+    })
 
-    var jsonData = JSON.stringify(carList);
+    var jsonData = JSON.stringify(carList); //carList의 배열을 json으로 변환
     console.log(jsonData);
+
+    $('#carList').val('')
 }
 
 // 텍스트 복사하기
@@ -94,21 +101,61 @@ function clickCount() {
     }
 }
 
-function completion(){
+// 차량 반납 장소 입력창
+function completion() {
     var pop = $('.pop')
+    var carPop = $('.carControllPop') // 차량 반납 장소 입력 팝업창
     var carNum = $('#carNum').val();
-    console.log(carNum);
-    if(carNum.length <= 3){
-        pop.find('p').text("잘못된 차량 번호입니다"); // 3자리 이하의 차량번호면 팝업창 띄우기
-        pop.stop().stop().stop().fadeIn(500)
-    }else{
-        pop.find('p').text(carNum+"의 운행이 종료됩니다")
-        pop.stop().stop().stop().fadeIn(500)
+    // console.log(carNum);
+    if (carNum.length <= 3) { // 3자리 이하의 차량번호면 팝업창 띄우기
+        pop.find('p').text("잘못된 차량 번호입니다");
+        pop.stop().stop().stop().fadeIn(500);
+    } else { // 잘 들어갔으면 아래 팝업창 띄우기
+        carPop.find('p').text(carNum + "의 운행이 종료됩니다")
+        carPop.show();
     }
+
     pop.fadeOut(500)
 
     $('#carNum').val('');
 }
+function isCarNumClose(){
+    var pop = $('.pop')
+    var carNum = $('#carNum').val();
+    if (carNum.length <= 3) { // 3자리 이하의 차량번호면 팝업창 띄우기
+        pop.find('p').text("잘못된 차량 번호입니다");
+        pop.stop().stop().stop().fadeIn(500);
+    }else{
+        pop.find('p').text(carNum+"의 문이 닫힙니다.");
+        pop.stop().stop().stop().fadeIn(500);
+    }
+    pop.fadeOut(500)
+}
+function isCarNumOpen() { // 문열기 차량 확인 함수
+    var pop = $('.pop')
+    var carNum = $('#carNum').val();
+    if (carNum.length <= 3) { // 3자리 이하의 차량번호면 팝업창 띄우기
+        pop.find('p').text("잘못된 차량 번호입니다");
+        pop.stop().stop().stop().fadeIn(500);
+    }else{
+        pop.find('p').text(carNum+"의 문이 열립니다.");
+        pop.stop().stop().stop().fadeIn(500);
+    }
+    pop.fadeOut(500)
+}
+
+function carCtrBtn() {
+    var spotText = $('.carControllPop>input');
+    var spotSendText = spotText.val();
+
+    $(spotText).val('')
+    console.log(spotSendText);
+}
+
+// 차량 팝업창 닫기 버튼 클릭시 이벤트
+$('.carControllPop>a').on('click', function () {
+    $(this).parent('.carControllPop').hide();
+})
 
 //textarea 내용 초기화
 function Reset() {
