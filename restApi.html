@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button name="carNum" value="3019" onclick="Test()">테스트</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        function Test() {
+            $.ajax({
+                type: "POST",
+                url: "/ra/v1/ve/ctrl/door/close",
+                beforeSend: function (xhr){
+                    xhr.setRequestHeader($("meta[name='_carf_header']").attr("content"),
+                        $("meta[name='_csrf']")
+                    )
+                },
+                success: function (response) {
+                    console.log(response);
+                    console.log('success');
+                },error : function (databc){
+                    console.log(databc);
+                    console.log('error');
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

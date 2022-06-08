@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="carList">
+            <span>차량번호 리스트</span>
+            <div class="carList-text">
+                <textarea name="carList" id="carList" cols="30" rows="10"></textarea>
+                <div class="top-btn">
+                    <button type="button" name="carListBtn" onclick="reservation()">관리자예약 시작</button> <!-- 관리자예약 시작, 문열림 -->
+                </div>
+            </div>
+        </div>
+
+        <div class="carControll">
+            <div class="carControll-text">
+                <span>차량제어</span>
+                <div class="top-text">
+                    <span>차번호</span>
+                    <input type="text" name="carNum" id="carNum">
+                </div>
+                <div class="bottom-text">
+                    <button type="button">문닫기</button>
+                    <button type="button">문열기</button>
+                    <button type="button" onclick="completion()" >차량반납</button> <!-- 차량반납, 문닫기 -->
+                </div>
+            </div>
+        </div>
+
+        <div class="tool">
+            <span>도구</span>
+            <div class="top-text">
+                <textarea name="text" id="text" cols="30" rows="10" onkeyup="clickCount()"></textarea>
+                <div class="btn">
+                    <button type="button" onclick="trimDel(),copy(), Reset(), clickCount()">공백 제거 및 복사</button>
+                </div>
+            </div>
+            <div class="bottom-text">
+                <div class="count">
+                    <p><span>0자</span>/300자</p>
+                </div>
+                <div class="reset">
+                    <button type="button" onclick="Reset(), clickCount()">초기화</button>
+                </div>
+            </div>
+        </div>
+        <!-- <p>0/100</p>  -->
+
+        <div class="pop">
+            <p></p>
+        </div>
+    </div>
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
